@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Apply Now — OSADI</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #f5f3ff 0%, #eff6ff 50%, #f0fdf4 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 20px;
+      padding: 48px 40px;
+      width: 100%;
+      max-width: 520px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 32px;
+    }
+
+    .logo-icon {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, #8b5cf6, #14b8a6);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 700;
+      font-size: 18px;
+    }
+
+    .logo-text { font-size: 18px; font-weight: 700; color: #1f2937; }
+    .logo-sub  { font-size: 12px; color: #6b7280; }
+
+    h1 { font-size: 26px; font-weight: 700; color: #111827; margin-bottom: 6px; }
+    .subtitle { font-size: 14px; color: #6b7280; margin-bottom: 32px; line-height: 1.5; }
+
+    .field { margin-bottom: 20px; }
+    label { display: block; font-size: 13px; font-weight: 500; color: #374151; margin-bottom: 6px; }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"] {
+      width: 100%;
+      padding: 11px 14px;
+      border: 1.5px solid #e5e7eb;
+      border-radius: 10px;
+      font-size: 14px;
+      color: #111827;
+      transition: border-color 0.2s;
+      outline: none;
+    }
+    input:focus { border-color: #8b5cf6; box-shadow: 0 0 0 3px rgba(139,92,246,0.1); }
+
+    .upload-area {
+      border: 2px dashed #d1d5db;
+      border-radius: 12px;
+      padding: 32px 16px;
+      text-align: center;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+      position: relative;
+    }
+    .upload-area:hover, .upload-area.drag-over {
+      border-color: #8b5cf6;
+      background: #faf5ff;
+    }
+    .upload-area input[type="file"] {
+      position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%;
+    }
+    .upload-icon { font-size: 32px; margin-bottom: 8px; }
+    .upload-text { font-size: 14px; font-weight: 500; color: #4b5563; }
+    .upload-hint { font-size: 12px; color: #9ca3af; margin-top: 4px; }
+    .file-name   { font-size: 13px; color: #7c3aed; font-weight: 500; margin-top: 8px; }
+
+    .btn {
+      width: 100%;
+      padding: 14px;
+      background: linear-gradient(135deg, #8b5cf6, #6d28d9);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: opacity 0.2s, transform 0.1s;
+      margin-top: 8px;
+    }
+    .btn:hover:not(:disabled) { opacity: 0.92; transform: translateY(-1px); }
+    .btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+
+    .spinner {
+      display: inline-block;
+      width: 16px; height: 16px;
+      border: 2px solid rgba(255,255,255,0.4);
+      border-top-color: white;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      vertical-align: middle;
+      margin-right: 8px;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .success {
+      text-align: center;
+      padding: 32px 0;
+    }
+    .success-icon {
+      width: 64px; height: 64px;
+      background: #dcfce7;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 16px;
+      font-size: 28px;
+    }
+    .success h2 { font-size: 22px; font-weight: 700; color: #15803d; margin-bottom: 8px; }
+    .success p  { font-size: 14px; color: #6b7280; line-height: 1.6; }
+
+    .error-msg {
+      background: #fef2f2;
+      border: 1px solid #fca5a5;
+      color: #dc2626;
+      padding: 12px 14px;
+      border-radius: 8px;
+      font-size: 13px;
+      margin-bottom: 16px;
+    }
+
+    .required { color: #dc2626; }
+    .divider { border: none; border-top: 1px solid #f3f4f6; margin: 24px 0; }
+    .note { font-size: 12px; color: #9ca3af; text-align: center; margin-top: 16px; line-height: 1.5; }
+  </style>
+</head>
+<body>
+
+<div class="card">
+
+  <!-- Logo -->
+  <div class="logo">
+    <div class="logo-icon">O</div>
+    <div>
+      <div class="logo-text">OSADI</div>
+      <div class="logo-sub">Recruitment Portal</div>
+    </div>
+  </div>
+
+  <!-- Form -->
+  <div id="form-section">
+    <h1>Apply Now</h1>
+    <p class="subtitle">
+      Submit your resume and we'll review your application. Our team will be in touch if your profile matches our requirements.
+    </p>
+
+    <div id="error-msg" class="error-msg" style="display:none;"></div>
+
+    <div class="field">
+      <label>Full Name <span class="required">*</span></label>
+      <input type="text" id="name" placeholder="e.g. Muhammad Azeem Bin Ahmad" required />
+    </div>
+
+    <div class="field">
+      <label>Email Address <span class="required">*</span></label>
+      <input type="email" id="email" placeholder="yourname@email.com" required />
+    </div>
+
+    <div class="field">
+      <label>Phone Number <span class="required">*</span></label>
+      <input type="tel" id="phone" placeholder="01X-XXXXXXXX" required />
+    </div>
+
+    <hr class="divider" />
+
+    <div class="field">
+      <label>Resume / CV <span class="required">*</span></label>
+      <div class="upload-area" id="upload-area">
+        <input type="file" id="resume" accept=".pdf,.doc,.docx" required />
+        <div class="upload-icon">📄</div>
+        <div class="upload-text">Click to upload or drag & drop</div>
+        <div class="upload-hint">PDF, DOC, DOCX — max 10MB</div>
+        <div class="file-name" id="file-name" style="display:none;"></div>
+      </div>
+    </div>
+
+    <button class="btn" id="submit-btn" onclick="submitApplication()">
+      Submit Application
+    </button>
+
+    <p class="note">
+      Your information is kept confidential and will only be used for recruitment purposes.
+    </p>
+  </div>
+
+  <!-- Success -->
+  <div id="success-section" class="success" style="display:none;">
+    <div class="success-icon">✅</div>
+    <h2>Application Submitted!</h2>
+    <p>
+      Thank you for applying. We've received your resume and will review it shortly.
+      Our recruitment team will contact you if your profile matches our requirements.
+    </p>
+    <button class="btn" style="margin-top:24px;" onclick="resetForm()">
+      Submit Another Application
+    </button>
+  </div>
+
+</div>
+
+<script>
+  const API_BASE = 'https://osadiatsinitial-production.up.railway.app';
+
+  // File input label
+  document.getElementById('resume').addEventListener('change', function() {
+    const el = document.getElementById('file-name');
+    if (this.files[0]) {
+      el.textContent = '✓ ' + this.files[0].name;
+      el.style.display = 'block';
+    }
+  });
+
+  // Drag & drop
+  const area = document.getElementById('upload-area');
+  area.addEventListener('dragover', e => { e.preventDefault(); area.classList.add('drag-over'); });
+  area.addEventListener('dragleave', () => area.classList.remove('drag-over'));
+  area.addEventListener('drop', e => {
+    e.preventDefault();
+    area.classList.remove('drag-over');
+    const file = e.dataTransfer.files[0];
+    if (file) {
+      const input = document.getElementById('resume');
+      const dt = new DataTransfer();
+      dt.items.add(file);
+      input.files = dt.files;
+      document.getElementById('file-name').textContent = '✓ ' + file.name;
+      document.getElementById('file-name').style.display = 'block';
+    }
+  });
+
+  async function submitApplication() {
+    const name   = document.getElementById('name').value.trim();
+    const email  = document.getElementById('email').value.trim();
+    const phone  = document.getElementById('phone').value.trim();
+    const file   = document.getElementById('resume').files[0];
+    const errEl  = document.getElementById('error-msg');
+    const btn    = document.getElementById('submit-btn');
+
+    errEl.style.display = 'none';
+
+    if (!name || !email || !phone || !file) {
+      errEl.textContent = 'Please fill in all required fields and upload your resume.';
+      errEl.style.display = 'block';
+      return;
+    }
+
+    if (!email.includes('@')) {
+      errEl.textContent = 'Please enter a valid email address.';
+      errEl.style.display = 'block';
+      return;
+    }
+
+    btn.disabled = true;
+    btn.innerHTML = '<span class="spinner"></span>Submitting...';
+
+    try {
+      const formData = new FormData();
+      formData.append('file',  file);
+      formData.append('name',  name);
+      formData.append('email', email);
+      formData.append('phone', phone);
+
+      const res = await fetch(`${API_BASE}/apply`, {
+        method: 'POST',
+        body: formData,
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.detail || 'Submission failed. Please try again.');
+      }
+
+      document.getElementById('form-section').style.display    = 'none';
+      document.getElementById('success-section').style.display = 'block';
+
+    } catch (err) {
+      errEl.textContent    = err.message || 'Something went wrong. Please try again.';
+      errEl.style.display  = 'block';
+      btn.disabled         = false;
+      btn.innerHTML        = 'Submit Application';
+    }
+  }
+
+  function resetForm() {
+    document.getElementById('name').value  = '';
+    document.getElementById('email').value = '';
+    document.getElementById('phone').value = '';
+    document.getElementById('resume').value = '';
+    document.getElementById('file-name').style.display = 'none';
+    document.getElementById('success-section').style.display = 'none';
+    document.getElementById('form-section').style.display    = 'block';
+  }
+</script>
+
+</body>
+</html>
